@@ -1,0 +1,221 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-display: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-body: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Custom Prose Styles for Terminal Theme */
+@layer utilities {
+  .prose {
+    --tw-prose-body: var(--foreground);
+    --tw-prose-headings: var(--foreground);
+    --tw-prose-lead: var(--muted-foreground);
+    --tw-prose-links: var(--primary);
+    --tw-prose-bold: var(--primary);
+    --tw-prose-counters: var(--primary);
+    --tw-prose-bullets: var(--primary);
+    --tw-prose-hr: var(--border);
+    --tw-prose-quotes: var(--foreground);
+    --tw-prose-quote-borders: var(--primary);
+    --tw-prose-captions: var(--muted-foreground);
+    --tw-prose-code: var(--primary);
+    --tw-prose-pre-code: var(--foreground);
+    --tw-prose-pre-bg: var(--muted);
+    --tw-prose-th-borders: var(--border);
+    --tw-prose-td-borders: var(--border);
+  }
+
+  .prose a {
+    text-decoration: none;
+    border-bottom: 1px dashed var(--primary);
+    transition: all 0.2s ease;
+  }
+
+  .prose a:hover {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-bottom-style: solid;
+  }
+
+  .prose pre {
+    background-color: #0d1117 !important;
+    /* GitHub Dark bg */
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .prose code {
+    background-color: transparent;
+    color: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  /* Inline code styling */
+  .prose :not(pre)>code {
+    background-color: var(--muted);
+    color: var(--primary);
+    padding: 0.2em 0.4em;
+    border-radius: 0;
+    border: 1px solid var(--border);
+  }
+
+  .prose img {
+    border-radius: 0;
+    /* Boxy */
+    border: 1px solid var(--border);
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* Default: Neural Architect (Terminal Blue) */
+  --background: #000000;
+  --foreground: #eeeeee;
+
+  --primary: #3b82f6;
+  /* Terminal Blue */
+  --primary-foreground: #000000;
+
+  --secondary: #22c55e;
+  /* Terminal Green */
+  --secondary-foreground: #000000;
+
+  --muted: #111111;
+  --muted-foreground: #666666;
+
+  --accent: #111111;
+  --accent-foreground: #eeeeee;
+
+  --border: #333333;
+  --input: #333333;
+  --ring: #3b82f6;
+
+  --radius: 0px;
+  /* Boxy */
+}
+
+[data-theme="light"] {
+  /* Light Theme */
+  --background: #ffffff;
+  --foreground: #000000;
+
+  --primary: #2563eb;
+  /* Blue-600 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #16a34a;
+  /* Green-600 */
+  --secondary-foreground: #ffffff;
+
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+
+  --accent: #f3f4f6;
+  --accent-foreground: #111827;
+
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #2563eb;
+}
+
+[data-theme="alternative"] {
+  /* Alternative: Red Alert */
+  --background: #050505;
+  --foreground: #e5e5e5;
+
+  --primary: #ef4444;
+  /* Red */
+  --primary-foreground: #ffffff;
+
+  --secondary: #f59e0b;
+  /* Amber */
+  --secondary-foreground: #000000;
+
+  --muted: #171717;
+  --muted-foreground: #737373;
+
+  --accent: #171717;
+  --accent-foreground: #e5e5e5;
+
+  --border: #404040;
+  --input: #404040;
+  --ring: #ef4444;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Terminal Cursor Effect */
+.cursor-blink {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: var(--primary);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-left: 1px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 1px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
