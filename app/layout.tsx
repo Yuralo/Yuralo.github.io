@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CommandMenu } from "@/components/CommandMenu";
 import { ScanLine } from "@/components/ScanLine";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { getAllPosts } from "@/lib/posts";
 import { projects } from "@/lib/projects";
 
@@ -51,7 +52,8 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
-            <CommandMenu posts={getAllPosts()} projects={projects} />
+            <CommandMenu posts={getAllPosts()} />
+            <ScrollToTop />
           </div>
         </ThemeProvider>
       </body>

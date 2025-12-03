@@ -47,9 +47,29 @@ export function Heatmap() {
 
   useEffect(() => {
     if (!loading && scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+      // Small timeout to ensure layout is computed
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+        }
+      }, 0);
     }
   }, [loading]);
+
+  // Helper to get month label for a week
+  const getMonthLabel = (weekIndex: number) => {
+    const firstDayOfWeek = contributions[weekIndex * 7];
+    if (!firstDayOfWeek) return null;
+    
+    const date = new Date(firstDayOfWeek.date);
+    const prevWeekFirstDay = contributions[(weekIndex - 1) * 7];
+    
+    // Show label if it's the first week or if month changed from previous week
+    if (weekIndex === 0 || (prevWeekFirstDay && new Date(prevWeekFirstDay.date).getMonth() !== date.getMonth())) {
+      return date.toLocaleString('default', { month: 'short' });
+    }
+    return null;
+  };
 
   if (loading) {
     return (
@@ -69,37 +89,38 @@ export function Heatmap() {
 
   return (
     <div ref={scrollRef} className="w-full overflow-x-auto pb-4 scrollbar-hide relative">
-      <div className="w-full flex gap-[3px]">
-        {Array.from({ length: 53 }).map((_, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col gap-[3px] flex-1">
-            {Array.from({ length: 7 }).map((_, dayIndex) => {
-              const dayData = contributions[weekIndex * 7 + dayIndex];
-              // Render empty placeholder if no data for this day (e.g. start/end of year padding)
-              if (!dayData) return <div key={dayIndex} className="w-full aspect-square" />;
-              
-              const levelText = ["No contributions", "1-3 contributions", "4-6 contributions", "7-9 contributions", "10+ contributions"][dayData.level];
-              
-              return (
-                <motion.div
-                  key={dayData.date}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: weekIndex * 0.01 }}
-                  className={`w-full aspect-square rounded-sm ${getColor(dayData.level)} hover:opacity-80 transition-opacity cursor-help relative`}
-                  onMouseEnter={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    setHoveredDay({
-                      data: dayData,
-                      x: rect.left + rect.width / 2,
-                      y: rect.top - 10
-                    });
-                  }}
-                  onMouseLeave={() => setHoveredDay(null)}
-                />
-              );
-            })}
-          </div>
-        ))}
+      <div className="min-w-[600px]">
+        {/* Heatmap Grid */}
+        <div className="flex gap-[3px]">
+          {Array.from({ length: 53 }).map((_, weekIndex) => (
+            <div key={weekIndex} className="flex flex-col gap-[3px] flex-1">
+              {Array.from({ length: 7 }).map((_, dayIndex) => {
+                const dayData = contributions[weekIndex * 7 + dayIndex];
+                // Render empty placeholder if no data for this day (e.g. start/end of year padding)
+                if (!dayData) return <div key={dayIndex} className="w-full aspect-square" />;
+                
+                return (
+                  <motion.div
+                    key={dayData.date}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: weekIndex * 0.01 }}
+                    className={`w-full aspect-square rounded-sm ${getColor(dayData.level)} hover:opacity-80 transition-opacity cursor-help relative`}
+                    onMouseEnter={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      setHoveredDay({
+                        data: dayData,
+                        x: rect.left + rect.width / 2,
+                        y: rect.top - 10
+                      });
+                    }}
+                    onMouseLeave={() => setHoveredDay(null)}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </div>
       
       {/* Custom Tooltip */}

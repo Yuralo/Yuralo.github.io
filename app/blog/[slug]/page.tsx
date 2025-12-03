@@ -32,10 +32,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       <article className="prose prose-invert prose-lg max-w-none">
         <div className="mb-8 border-b border-border pb-8">
-          <h1 className="mb-2">{post.title}</h1>
-          <div className="flex items-center gap-4 text-muted-foreground text-sm">
+          <h1 className="mb-2 break-words">{post.title}</h1>
+          <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-muted-foreground text-sm">
             <time>{post.date}</time>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span key={tag} className="text-primary">#{tag}</span>
               ))}

@@ -53,12 +53,12 @@ export function Navbar() {
       </Link>
       
       {/* Creative navigation - horizontal with distinctive styling */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="flex items-center border border-border bg-background">
           <Link
             href="/blog"
             className={cn(
-              "px-6 py-3 text-sm font-bold transition-all uppercase tracking-wider border-r border-border hover:bg-primary hover:text-primary-foreground",
+              "px-4 py-2 md:px-6 md:py-3 text-sm font-bold transition-all uppercase tracking-wider border-r border-border hover:bg-primary hover:text-primary-foreground",
               pathname.startsWith("/blog") 
                 ? "bg-primary text-primary-foreground" 
                 : "text-foreground/70"
@@ -70,7 +70,7 @@ export function Navbar() {
           <Link
             href="/projects"
             className={cn(
-              "px-6 py-3 text-sm font-bold transition-all uppercase tracking-wider border-r border-border hover:bg-primary hover:text-primary-foreground",
+              "px-4 py-2 md:px-6 md:py-3 text-sm font-bold transition-all uppercase tracking-wider border-r border-border hover:bg-primary hover:text-primary-foreground",
               pathname === "/projects"
                 ? "bg-primary text-primary-foreground"
                 : "text-foreground/70"
@@ -82,7 +82,7 @@ export function Navbar() {
           <Link
             href="/contact"
             className={cn(
-              "px-6 py-3 text-sm font-bold transition-all uppercase tracking-wider hover:bg-primary hover:text-primary-foreground",
+              "px-4 py-2 md:px-6 md:py-3 text-sm font-bold transition-all uppercase tracking-wider hover:bg-primary hover:text-primary-foreground",
               pathname === "/contact"
                 ? "bg-primary text-primary-foreground"
                 : "text-foreground/70"
@@ -94,7 +94,7 @@ export function Navbar() {
 
         {/* Theme & Color Picker */}
         {mounted && (
-          <div className="flex items-center border border-border bg-background ml-4">
+          <div className="flex items-center border border-border bg-background mt-4 md:mt-0 md:ml-4">
             <button
               onClick={() => document.dispatchEvent(new Event("open-command-menu"))}
               className="p-3 hover:bg-primary hover:text-primary-foreground transition-all border-r border-border group relative"

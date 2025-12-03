@@ -8,11 +8,22 @@ import { Search, FileText, Home, Image, BarChart2, Link as LinkIcon, Laptop, Moo
 
 import { type Post } from "@/lib/posts";
 import { type Project } from "@/lib/projects";
+import { getGitHubRepos, type GitHubRepo } from "@/lib/github";
 
-export function CommandMenu({ posts, projects }: { posts: Post[], projects: Project[] }) {
+export function CommandMenu({ posts }: { posts: Post[] }) {
   const [open, setOpen] = React.useState(false);
+  const [repos, setRepos] = React.useState<GitHubRepo[]>([]);
   const router = useRouter();
   const { setTheme } = useTheme();
+
+  // Fetch GitHub repos
+  React.useEffect(() => {
+    async function fetchRepos() {
+      const data = await getGitHubRepos();
+      setRepos(data);
+    }
+    fetchRepos();
+  }, []);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -32,6 +43,18 @@ export function CommandMenu({ posts, projects }: { posts: Post[], projects: Proj
     };
   }, []);
 
+  // Prevent scroll when open
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
   const runCommand = React.useCallback((command: () => void) => {
     setOpen(false);
     command();
@@ -39,15 +62,6 @@ export function CommandMenu({ posts, projects }: { posts: Post[], projects: Proj
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 md:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className="bg-primary text-primary-foreground p-3 rounded-full shadow-lg"
-        >
-          <Search size={20} />
-        </button>
-      </div>
-      
       {open && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
@@ -116,18 +130,18 @@ export function CommandMenu({ posts, projects }: { posts: Post[], projects: Proj
               <Command.Separator className="my-1 h-px bg-border" />
 
               <Command.Group heading="Projects" className="text-xs font-medium text-muted-foreground px-2 py-1.5">
-                {projects.map((project) => (
+                {repos.map((repo) => (
                   <Command.Item
-                    key={project.title}
+                    key={repo.name}
                     onSelect={() => {
-                      if (project.github) window.open(project.github, "_blank");
-                      else if (project.demo) window.open(project.demo, "_blank");
+                      window.open(repo.html_url, "_blank");
                       setOpen(false);
                     }}
                     className="flex items-center gap-2 px-2 py-1.5 rounded-sm text-sm cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground"
+                    keywords={[repo.description || "", repo.language || "", ...repo.topics]}
                   >
                     <Laptop className="h-4 w-4" />
-                    <span>{project.title}</span>
+                    <span>{repo.name}</span>
                   </Command.Item>
                 ))}
               </Command.Group>
