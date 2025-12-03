@@ -90,13 +90,11 @@ export function Heatmap() {
   return (
     <div ref={scrollRef} className="w-full overflow-x-auto pb-4 scrollbar-hide relative">
       <div className="min-w-[600px]">
-        {/* Heatmap Grid */}
         <div className="flex gap-[3px]">
           {Array.from({ length: 53 }).map((_, weekIndex) => (
             <div key={weekIndex} className="flex flex-col gap-[3px] flex-1">
               {Array.from({ length: 7 }).map((_, dayIndex) => {
                 const dayData = contributions[weekIndex * 7 + dayIndex];
-                // Render empty placeholder if no data for this day (e.g. start/end of year padding)
                 if (!dayData) return <div key={dayIndex} className="w-full aspect-square" />;
                 
                 return (

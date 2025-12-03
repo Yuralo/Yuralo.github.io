@@ -10,6 +10,7 @@ export type Post = {
   date: string;
   description: string;
   tags: string[];
+  citations?: Record<string, string>;
   content: string;
 };
 
@@ -33,6 +34,7 @@ export function getAllPosts(): Post[] {
         date: data.date,
         description: data.description,
         tags: data.tags || [],
+        citations: data.citations || {},
         content,
       };
     });
@@ -76,6 +78,7 @@ export function getPostBySlug(slug: string): Post | null {
       date: data.date,
       description: data.description,
       tags: data.tags || [],
+      citations: data.citations || {},
       content: processedContent,
     };
   } catch (e) {

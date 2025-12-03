@@ -31,7 +31,31 @@ Images are automatically optimized and styled.
 
 ![Cellular Automata](/images/posts/hello-world/spm.png)
 
-### 4. Typography
+### 4. C/C++ Code Execution (WebAssembly)
+You can run C code directly in the browser! Here's the source:
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello from WebAssembly!\n");
+    printf("This C code is running in your browser!\n");
+    
+    int numbers[5] = {1, 2, 3, 4, 5};
+    int sum = 0;
+    
+    for (int i = 0; i < 5; i++) {
+        sum += numbers[i];
+    }
+    
+    printf("Sum of [1,2,3,4,5] = %d\n", sum);
+    
+    return 0;
+}
+```
+
+
+### 5. Typography
 - **Bold** and *Italic* text
 - [Links](https://nextjs.org) with custom hover effects
 - Lists and blockquotes:

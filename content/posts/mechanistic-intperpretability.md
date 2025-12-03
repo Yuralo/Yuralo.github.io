@@ -1,8 +1,23 @@
 ---
-title: "Mechanistic Interpretation of LLMs"
+title: "Mechanistic Intepretability"
 date: "2025-12-02"
-description: "Welcome to my new personal website built with Next.js and Tailwind CSS."
-tags: ["Python", "LLMs", "Mechanistic Interpretation"]
+description: "Observing model weights and trying to understand what they are learning"
+tags: ["Python", "LLMs", "Mechanistic Interpretability"]
+citations:
+  "1": "Language Models are Few-Shot Learners, Brown et al. (2020)"
+  "2": "Training Language Models to Follow Instructions, Ouyang et al. (2022)"
+  "3": "Constitutional AI: Harmlessness from AI Feedback, Bai et al. (2022)"
+  "4": "Chain-of-Thought Prompting Elicits Reasoning, Wei et al. (2022)"
+  "5": "Self-Consistency Improves Chain of Thought, Wang et al. (2022)"
+  "6": "Show Your Work: Scratchpads for Intermediate Computation, Nye et al. (2021)"
+  "7": "Large Language Models are Zero-Shot Reasoners, Kojima et al. (2022)"
+  "8": "Scaling Laws for Neural Language Models, Kaplan et al. (2020)"
+  "9": "Emergent Abilities of Large Language Models, Wei et al. (2022)"
+  "10": "Sparks of Artificial General Intelligence, Bubeck et al. (2023)"
+  "11": "The Bitter Lesson, Rich Sutton (2019)"
+  "21": "Grokking: Generalization Beyond Overfitting, Power et al. (2022)"
+  "30": "A Mathematical Framework for Transformer Circuits, Elhage et al. (2021)"
+  "31": "In-context Learning and Induction Heads, Olsson et al. (2022)"
 ---
 
 In here I would like to talk about a topic that is not usually talked about, the topic is basically how so number actually learn to do all those abilites my friends here talked about meaning how numbers and embedding after some kind of mathmatical operations are actually learning so really tough concepts like in-context learning and CoT in my opinion this not really appreciated in-context learning literally means that the model is learning to learn !!!
