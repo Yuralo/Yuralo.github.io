@@ -49,9 +49,9 @@ export default function Home() {
             <div className="space-y-2">
               {[
                 "Mechanistic Interpretability",
-                "Inference and Training Optimization",
-                "Small Models Training",
-                "Deep Reasoning Models"
+                "Inference Optimization",
+                "RLVR",
+                "AI Alignment",
               ].map((area) => (
                 <div
                   key={area}
@@ -71,10 +71,10 @@ export default function Home() {
             </h3>
             <div className="space-y-2">
               {[
+                "Large Language Models",
                 "Reinforcement Learning",
-                "Small Models Fine-Tuning",
-                "Self Driving",
-                "Gaussian Splats and NeRFs"
+                "CUDA Programming",
+                "Vision Models (eg. Diffusion, YOLO, SAM)",
               ].map((goal) => (
                 <div
                   key={goal}

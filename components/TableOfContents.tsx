@@ -81,16 +81,14 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       )}
 
       {/* TOC Content - Always fixed/absolute positioned */}
-      <nav
-        className={`
-          fixed z-40
-          ${isOpen ? 'left-0 top-0' : 'left-8 top-32'}
-          ${isOpen ? 'block' : 'hidden xl:block'}
-          w-56 max-h-[85vh] overflow-y-auto
-          ${isOpen ? 'bg-card/50 backdrop-blur-sm border-r border-border/50 p-6' : 'xl:bg-transparent xl:p-0'}
-          scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border
-        `}
-      >
+        <nav
+          className={`
+            ${isOpen 
+              ? 'fixed left-0 top-0 z-50 h-full w-72 bg-background/95 backdrop-blur-sm border-r p-6 shadow-2xl overflow-y-auto' 
+              : 'hidden xl:block w-full'
+            }
+          `}
+        >
         {/* Header */}
         <div className="flex items-center justify-between mb-4 xl:mb-6">
           <div className="flex items-center gap-2">

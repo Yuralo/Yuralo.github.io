@@ -49,10 +49,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <>
       {/* TOC - Completely outside container */}
-      <TableOfContents headings={headings} />
+
       
       <div className="py-10 w-full">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 relative">
+          {/* TOC - Positioned absolutely to the left on desktop, rendered for mobile toggle */}
+          <aside className="xl:absolute xl:left-[-280px] xl:top-0 xl:w-64 xl:h-full">
+            <div className="xl:pt-1">
+              <TableOfContents headings={headings} />
+            </div>
+          </aside>
+
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
@@ -60,7 +67,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <ArrowLeft size={16} /> Back to Blog
           </Link>
 
-          {/* Main Content without TOC in grid */}
           <article className="prose prose-invert prose-lg max-w-none">
             <div className="mb-8 border-b border-border pb-8">
               <h1 className="mb-2 break-words">{post.title}</h1>
