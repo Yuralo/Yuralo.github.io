@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Add empty turbopack config to silence the error when using webpack
+  turbopack: {},
   webpack: (config, { dev, isServer }) => {
     // In development, watch the content directory for changes
     if (dev) {
