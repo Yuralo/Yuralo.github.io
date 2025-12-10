@@ -12,6 +12,7 @@ export type Post = {
   tags: string[];
   citations?: Record<string, string>;
   content: string;
+  public?: boolean; // Defaults to true if not specified
 };
 
 export function getAllPosts(): Post[] {
@@ -36,8 +37,10 @@ export function getAllPosts(): Post[] {
         tags: data.tags || [],
         citations: data.citations || {},
         content,
+        public: data.public !== undefined ? data.public : true, // Default to true
       };
-    });
+    })
+    .filter((post) => post.public); // Only return public posts
 
   return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
@@ -80,6 +83,7 @@ export function getPostBySlug(slug: string): Post | null {
       tags: data.tags || [],
       citations: data.citations || {},
       content: processedContent,
+      public: data.public !== undefined ? data.public : true, // Default to true
     };
   } catch (e) {
     return null;

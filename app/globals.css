@@ -9,7 +9,8 @@
 /* Custom Prose Styles for Terminal Theme */
 @layer utilities {
   .prose {
-    --tw-prose-body: var(--foreground);
+    --tw-prose-body: #d4d4d4;
+    /* Softer off-white for better readability */
     --tw-prose-headings: var(--foreground);
     --tw-prose-lead: var(--muted-foreground);
     --tw-prose-links: var(--primary);
@@ -76,7 +77,11 @@
   .prose h4 {
     font-weight: 700;
     letter-spacing: -0.02em;
-    text-transform: uppercase;
+  }
+
+  /* Light theme: softer dark gray for better readability */
+  [data-theme="light"] .prose {
+    --tw-prose-body: #2d2d2d;
   }
 }
 

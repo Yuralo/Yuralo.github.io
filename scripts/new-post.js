@@ -11,13 +11,15 @@ const questions = {
         title: 'Post Title: ',
         description: 'Description: ',
         tags: 'Tags (comma separated): ',
+        isPublic: 'Is this post public? (y/n, default: y): ',
 };
 
 const postData = {
         title: '',
         description: '',
         tags: [],
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
+        public: true
 };
 
 function ask(question) {
@@ -34,6 +36,9 @@ async function main() {
 
         const tagsStr = await ask(questions.tags);
         postData.tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
+
+        const isPublicStr = await ask(questions.isPublic);
+        postData.public = isPublicStr.trim().toLowerCase() !== 'n' && isPublicStr.trim().toLowerCase() !== 'no';
 
         const slug = postData.title
                 .toLowerCase()
@@ -54,7 +59,7 @@ title: "${postData.title}"
 date: "${postData.date}"
 description: "${postData.description}"
 tags: [${postData.tags.map(t => `"${t}"`).join(', ')}]
-tags: [${postData.tags.map(t => `"${t}"`).join(', ')}]
+public: ${postData.public}
 ---
 
 Write your content here...

@@ -3,6 +3,7 @@ title: "Hello World"
 date: "2023-10-27"
 description: "Welcome to my new personal website built with Next.js and Tailwind CSS."
 tags: ["nextjs", "personal", "webdev"]
+public: true
 ---
 
 # Welcome to My Digital Garden
@@ -55,7 +56,46 @@ int main() {
 ```
 
 
-### 5. Typography
+### 5. LaTeX Math Equations
+I can now write beautiful mathematical equations using LaTeX! Here are some examples:
+
+**Inline math**: The famous equation $E = mc^2$ by Einstein, or the Pythagorean theorem $a^2 + b^2 = c^2$.
+
+**Block equations**: Here's the quadratic formula:
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+And here's a more complex example showing matrix multiplication:
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\begin{bmatrix}
+e & f \\
+g & h
+\end{bmatrix}
+=
+\begin{bmatrix}
+ae + bg & af + bh \\
+ce + dg & cf + dh
+\end{bmatrix}
+$$
+
+You can also write integrals, summations, and more:
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+$$
+
+### 6. Typography
 - **Bold** and *Italic* text
 - [Links](https://nextjs.org) with custom hover effects
 - Lists and blockquotes:

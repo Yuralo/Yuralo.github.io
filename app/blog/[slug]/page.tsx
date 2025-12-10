@@ -8,6 +8,11 @@ import { References } from "@/components/References";
 import { TableOfContents } from "@/components/TableOfContents";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
 import rehypePrettyCode from "rehype-pretty-code";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+// Disable static generation in development to allow hot reloading
+export const dynamic = process.env.NODE_ENV === 'production' ? 'auto' : 'force-dynamic';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -40,7 +45,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post) {
+  if (!post || post.public === false) {
     notFound();
   }
 
@@ -97,7 +102,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               }}
               options={{
                 mdxOptions: {
+                  remarkPlugins: [remarkMath],
                   rehypePlugins: [
+                    rehypeKatex,
                     [
                       rehypePrettyCode,
                       {

@@ -1,6 +1,9 @@
 import { getAllPosts } from "@/lib/posts";
 import { BlogList } from "@/components/BlogList";
 
+// Disable static generation in development to allow hot reloading
+export const dynamic = process.env.NODE_ENV === 'production' ? 'auto' : 'force-dynamic';
+
 export default function BlogPage() {
   const posts = getAllPosts();
 
