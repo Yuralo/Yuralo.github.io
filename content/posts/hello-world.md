@@ -3,7 +3,7 @@ title: "Hello World"
 date: "2023-10-27"
 description: "Welcome to my new personal website built with Next.js and Tailwind CSS."
 tags: ["nextjs", "personal", "webdev"]
-public: true
+public: false
 ---
 
 # Welcome to My Digital Garden

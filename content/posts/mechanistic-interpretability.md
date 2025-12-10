@@ -3,7 +3,7 @@ title: "Mechanistic Interpretability"
 date: "2025-12-02"
 description: "Observing model weights and trying to understand what they are learning"
 tags: ["Python", "LLMs", "Mechanistic Interpretability"]
-public: true
+public: false
 citations:
     "1": 'Lindsey, et al., "On the Biology of a Large Language Model", Transformer Circuits, 2025.'
     "2": 'Elhage, et al., "A Mathematical Framework for Transformer Circuits", Transformer Circuits Thread, 2021.'

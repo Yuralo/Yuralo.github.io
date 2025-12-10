@@ -11,9 +11,6 @@ import rehypePrettyCode from "rehype-pretty-code";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
-// Disable static generation in development to allow hot reloading
-export const dynamic = process.env.NODE_ENV === 'production' ? 'auto' : 'force-dynamic';
-
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({
