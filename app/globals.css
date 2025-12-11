@@ -67,8 +67,14 @@
 
   .prose img {
     border-radius: 0;
-    /* Boxy */
-    border: 1px solid var(--border);
+    /* No border by default */
+  }
+  
+  /* Make images in prose take full width by default */
+  .prose figure {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .prose h1,
@@ -77,6 +83,89 @@
   .prose h4 {
     font-weight: 700;
     letter-spacing: -0.02em;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+
+  .prose h2 {
+    margin-top: 2.5em;
+  }
+
+  .prose p {
+    line-height: 1.75;
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.625em;
+  }
+
+  .prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.75;
+  }
+
+  .prose blockquote {
+    border-left: 3px solid var(--primary);
+    padding-left: 1.5em;
+    margin: 2em 0;
+    font-style: italic;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    padding: 1.5em;
+    border-left-width: 4px;
+  }
+
+  .prose blockquote p {
+    margin-top: 0;
+    margin-bottom: 0.75em;
+  }
+
+  .prose blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose table {
+    width: 100%;
+    margin: 2em 0;
+    border-collapse: collapse;
+  }
+
+  .prose thead {
+    border-bottom: 2px solid var(--border);
+  }
+
+  .prose th {
+    text-align: left;
+    padding: 0.75em 1em;
+    font-weight: 600;
+    background-color: var(--muted);
+  }
+
+  .prose td {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prose tr:hover {
+    background-color: var(--muted);
+  }
+
+  .prose hr {
+    margin: 3em 0;
+    border: none;
+    border-top: 2px solid var(--border);
+  }
+
+  /* Optimal reading width */
+  .prose {
+    max-width: 65ch;
+    line-height: 1.75;
   }
 
   /* Light theme: softer dark gray for better readability */
@@ -223,4 +312,34 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+/* Focus Mode Styles */
+body.focus-mode-active .max-w-4xl {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+body.focus-mode-active article.focus-mode-article {
+  position: relative !important;
+  z-index: 35 !important;
+  max-width: 1200px !important;
+  width: calc(100% - 4rem) !important;
+  margin: 2rem auto !important;
+  padding: 3rem !important;
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) !important;
+  animation: focusFadeIn 0.3s ease-out;
+}
+
+@keyframes focusFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

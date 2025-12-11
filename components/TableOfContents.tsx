@@ -108,30 +108,34 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         </div>
 
         {/* Links */}
-        <ul className="space-y-1">
-          {headings.map(({ id, text, level }) => (
-            <li 
-              key={id} 
-              style={{ 
-                paddingLeft: level === 1 ? '0' : '1rem'
-              }}
-            >
-              <a
-                href={`#${id}`}
-                onClick={(e) => handleClick(e, id)}
-                className={`
-                  group block py-1.5 px-3 rounded-md transition-all text-sm
-                  ${activeId === id
-                    ? 'text-primary bg-primary/10 font-medium border-l-2 border-primary ml-[-2px]'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
-                  }
-                  ${level === 1 ? 'font-medium' : 'text-xs'}
-                `}
+        <ul className="space-y-0.5">
+          {headings.map(({ id, text, level }) => {
+            const isActive = activeId === id;
+            return (
+              <li 
+                key={id} 
+                className="relative"
+                style={{ 
+                  paddingLeft: level === 1 ? '0' : '1rem'
+                }}
               >
-                {text}
-              </a>
-            </li>
-          ))}
+                <a
+                  href={`#${id}`}
+                  onClick={(e) => handleClick(e, id)}
+                  className={`
+                    group relative flex items-center py-2.5 px-4 rounded-md transition-all duration-200 text-sm
+                    ${isActive
+                      ? 'text-primary font-semibold bg-primary/10 shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                    }
+                    ${level === 1 ? 'font-semibold text-base' : 'font-normal'}
+                  `}
+                >
+                  <span className="relative z-10 flex-1">{text}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </>
