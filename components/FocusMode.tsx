@@ -65,7 +65,7 @@ export function FocusMode() {
       )}
       <button
         onClick={() => setIsActive(!isActive)}
-        className="fixed bottom-20 right-8 z-40 p-3 bg-card/90 backdrop-blur-sm border border-border hover:bg-card hover:border-primary transition-all"
+        className="hidden md:flex fixed bottom-20 right-8 z-40 p-3 bg-card/90 backdrop-blur-sm border border-border hover:bg-card hover:border-primary transition-all"
         aria-label={isActive ? "Exit focus mode" : "Enter focus mode"}
         title={isActive ? "Exit focus mode" : "Enter focus mode"}
       >

@@ -1,7 +1,7 @@
 "use client";
 
 import { Share2, Twitter, Linkedin, Link2, Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ShareButtonsProps {
   title: string;
@@ -11,7 +11,19 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url, description }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-  const fullUrl = typeof window !== "undefined" ? window.location.href : url;
+  const [fullUrl, setFullUrl] = useState(url);
+
+  // Update to full URL only on client side to avoid hydration mismatch
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Convert relative URL to absolute URL
+      if (url.startsWith("/")) {
+        setFullUrl(window.location.origin + url);
+      } else {
+        setFullUrl(url);
+      }
+    }
+  }, [url]);
 
   const shareData = {
     title,

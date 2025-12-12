@@ -41,7 +41,7 @@ Eventhough the architecture have changed a little bit for optimization purposes 
 
 Almost all of the performance gained by LLMs are because of this part that's why we are going to focus on it solely, meaning we will be training and inspecting Attention-only models ranging from 1, 2, 3 and 8 layers.
 
-**_NOTE:_** We are not using MLPs here because they famously make models hard to interpret due to their tendency to create distributed representations
+**_NOTE:_** We are not using MLPs here because they famously make models hard to interpret due to their tendency to create distributed representations.
 
 ## One-Layer Transformer
 
