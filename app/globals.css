@@ -168,6 +168,20 @@
     line-height: 1.75;
   }
 
+  /* Allow prose to take full width when max-w-none is applied */
+  .prose.max-w-none {
+    max-width: none !important;
+  }
+  
+  /* Ensure prose content elements also respect full width */
+  .prose.max-w-none p,
+  .prose.max-w-none ul,
+  .prose.max-w-none ol,
+  .prose.max-w-none blockquote,
+  .prose.max-w-none pre {
+    max-width: 100%;
+  }
+
   /* Light theme: softer dark gray for better readability */
   [data-theme="light"] .prose {
     --tw-prose-body: #2d2d2d;

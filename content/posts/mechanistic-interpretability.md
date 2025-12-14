@@ -35,7 +35,7 @@ In this post we are trying to reproduce the results of 2 main papers by Anthropi
 ## Transformers & Attention
 
 If you haven't been living under a rock you probably have heard about **Transformers**[4], in which they introduced the *Multi head attention* (MHA) the most important part today.
-![MHA|80%](MHA.webp)
+![MHA|80%](MHA.svg)
 
 Eventhough the architecture have changed a little bit for optimization purposes and many varations  have been introduced (GQA, MLA, DSA ...) still they all are some few tweaks away from original.
 
@@ -44,6 +44,21 @@ Almost all of the performance gained by LLMs are because of this part that's why
 **_NOTE:_** We are not using MLPs here because they famously make models hard to interpret due to their tendency to create distributed representations.
 
 ## One-Layer Transformer
+Starting we are training our model on **openwebtext** dataset, using a One-Layer attention only transformer
+
+using the following paramters:
+
+```python 
+d_model = 768
+n_heads = 12
+d_head = 64 
+vocab_size = enc.n_vocab
+batch_size = 32
+context_len = 128
+lr = 3e-4
+epochs = 40_000
+eval_iters = 50
+```
 
 ```python
 class OneLayerTransformer(nn.Module):
@@ -97,5 +112,9 @@ class OneLayerTransformer(nn.Module):
         if return_all:
             return logits, scores, pattern, v, z, hidden_state
         return logits 
-
 ```
+
+
+You can access the github repo right here:
+
+<GitHubRepo owner="yuralo" repo="Mechanistic-Interpretability" />

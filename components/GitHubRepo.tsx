@@ -62,10 +62,10 @@ export function GitHubRepo({ owner, repo, description, className = "" }: GitHubR
 
   if (loading) {
     return (
-      <div className={`border border-border bg-card p-4 ${className}`}>
-        <div className="flex items-center gap-3">
-          <div className="w-4 h-4 border border-border bg-background animate-pulse" />
-          <div className="flex-1 space-y-1.5">
+      <div className={`border border-border bg-card p-3 ${className}`}>
+        <div className="flex items-center gap-2.5">
+          <div className="w-[18px] h-[18px] border border-border bg-background animate-pulse" />
+          <div className="flex-1 space-y-1">
             <div className="h-4 w-32 bg-background animate-pulse" />
             <div className="h-3 w-48 bg-background animate-pulse" />
           </div>
@@ -80,87 +80,89 @@ export function GitHubRepo({ owner, repo, description, className = "" }: GitHubR
 
   return (
     <div 
-      className={`border border-border bg-card ${className}`}
+      className={`border border-border bg-card transition-all duration-300 group hover:border-primary/30 not-prose ${className}`}
       style={{ 
         borderBottomWidth: '2px',
         borderBottomStyle: 'dashed',
-        borderBottomColor: 'var(--primary)'
+        borderBottomColor: 'var(--primary)',
+        backgroundColor: 'var(--card)',
       }}
     >
       <a
         href={repoData.html_url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block px-4 py-3"
+        className="block px-4 py-2 transition-all duration-300 hover:bg-muted/50 relative no-underline"
         style={{ 
           textDecoration: 'none',
           borderBottom: 'none',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'transparent';
-          e.currentTarget.style.color = 'inherit';
-          e.currentTarget.style.borderBottom = 'none';
+          color: 'inherit',
+          backgroundColor: 'transparent',
         }}
       >
-        <div className="flex items-center gap-3 mb-1.5">
+        {/* GitHub logo in top-right corner */}
+        <div className="absolute top-2 right-2 opacity-50 group-hover:opacity-80 transition-opacity duration-300">
           <Github 
-            size={20} 
-            className="text-primary flex-shrink-0"
+            size={14} 
+            className="text-primary"
           />
-          <h3 className="text-lg font-bold text-foreground truncate flex-1 min-w-0 m-0 leading-normal">
-            {repoData.full_name}
-          </h3>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground flex-shrink-0">
-            <span>View on GitHub</span>
-            <ExternalLink size={12} className="shrink-0" />
-          </div>
         </div>
 
+        {/* Repo name */}
+        <div className="mb-1 pr-8">
+          <h3 className="text-base font-bold text-foreground truncate m-0 leading-tight">
+            {repoData.full_name}
+          </h3>
+        </div>
+
+        {/* Description */}
         {repoData.description && (
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-2 ml-[36px]">
+          <p className="text-xs text-muted-foreground line-clamp-1 mb-1.5">
             {repoData.description}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center gap-2 mb-1.5 ml-[36px]">
-          {repoData.language && (
-            <span 
-              className="text-xs border px-2 py-1 font-mono"
-              style={{
-                borderColor: getLanguageColor(repoData.language) + '4D',
-                color: getLanguageColor(repoData.language),
-              }}
-            >
-              {repoData.language}
-            </span>
-          )}
-          {repoData.topics && repoData.topics.length > 0 && repoData.topics.slice(0, 3).map((topic) => (
-            <span
-              key={topic}
-              className="text-xs border px-2 py-1 uppercase tracking-wider"
-              style={{
-                borderColor: getTagColor(topic) + '4D',
-                color: getTagColor(topic),
-              }}
-            >
-              {topic}
-            </span>
-          ))}
+        {/* Tags and stats row */}
+        <div className="flex items-center justify-between gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-1.5 flex-1 min-w-0">
+            {repoData.language && (
+              <span 
+                className="text-[10px] border border-primary/40 px-1.5 py-0.5 font-mono text-primary bg-primary/10"
+              >
+                {repoData.language}
+              </span>
+            )}
+            {repoData.topics && repoData.topics.length > 0 && repoData.topics.slice(0, 3).map((topic) => (
+              <span
+                key={topic}
+                className="text-[10px] border border-primary/40 px-1.5 py-0.5 uppercase tracking-wider text-primary bg-primary/10"
+              >
+                {topic}
+              </span>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center gap-3 text-[10px] text-muted-foreground flex-shrink-0">
+            {repoData.stargazers_count > 0 && (
+              <div className="flex items-center gap-1">
+                <Star size={10} className="fill-current" />
+                <span>{repoData.stargazers_count.toLocaleString()}</span>
+              </div>
+            )}
+            {repoData.forks_count > 0 && (
+              <div className="flex items-center gap-1">
+                <GitFork size={10} />
+                <span>{repoData.forks_count.toLocaleString()}</span>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="flex items-center gap-4 text-xs text-muted-foreground ml-[36px]">
-          {repoData.stargazers_count > 0 && (
-            <div className="flex items-center gap-1">
-              <Star size={12} className="fill-current" />
-              <span>{repoData.stargazers_count.toLocaleString()}</span>
-            </div>
-          )}
-          {repoData.forks_count > 0 && (
-            <div className="flex items-center gap-1">
-              <GitFork size={12} />
-              <span>{repoData.forks_count.toLocaleString()}</span>
-            </div>
-          )}
+        {/* View on GitHub link at bottom */}
+        <div className="flex items-center justify-end gap-1 text-[10px] text-muted-foreground  opacity-100 ">
+          <span>View on GitHub</span>
+          <ExternalLink size={9} className="shrink-0" />
         </div>
       </a>
     </div>

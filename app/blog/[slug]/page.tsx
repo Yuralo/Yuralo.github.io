@@ -11,6 +11,7 @@ import { BlogImage } from "@/components/BlogImage";
 import { ShareButtons } from "@/components/ShareButtons";
 import { FocusMode } from "@/components/FocusMode";
 import { GitHubRepo } from "@/components/GitHubRepo";
+import { Whiteboard } from "@/components/Whiteboard";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -104,6 +105,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 Citation: (props: any) => <Citation {...props} references={post.citations} />,
                 BlogImage: (props: any) => <BlogImage {...props} />,
                 GitHubRepo: (props: any) => <GitHubRepo {...props} />,
+                Whiteboard: (props: any) => <Whiteboard {...props} blogMode={true} blogSlug={slug} />,
                 img: ({ src, alt, title, width, className, ...props }: any) => (
                   <BlogImage 
                     src={src || ""} 

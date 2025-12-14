@@ -136,6 +136,8 @@ You can embed beautiful GitHub repository cards directly in blog posts! Here's a
 
 The component automatically fetches repository information including stars, forks, language, and topics. Click the card to visit the repository on GitHub!
 
+
+<Whiteboard storageKey="my-whiteboard" />
 ## References
 [1] Vaswani, A., et al. (2017). Attention Is All You Need.
 [2] Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.
