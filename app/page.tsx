@@ -49,7 +49,7 @@ export default function Home() {
             <div className="space-y-2">
               {[
                 "Mechanistic Interpretability",
-                "Inference Optimization",
+                "Inference Optimization", 
                 "RLVR",
                 "AI Alignment",
               ].map((area) => (

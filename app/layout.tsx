@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import { CommandMenu } from "@/components/CommandMenu";
 import { ScanLine } from "@/components/ScanLine";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { SnowEffect } from "@/components/SnowEffect";
+import { SnowToggle } from "@/components/SnowToggle";
 import { getAllPosts } from "@/lib/posts";
 import { projects } from "@/lib/projects";
 
@@ -55,6 +57,8 @@ export default function RootLayout({
             <Footer />
             <CommandMenu posts={getAllPosts()} />
             <ScrollToTop />
+            <SnowEffect />
+            <SnowToggle />
           </div>
         </ThemeProvider>
       </body>

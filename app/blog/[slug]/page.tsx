@@ -64,7 +64,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <>
       <FocusMode />
       
-      <div className="py-10 w-full">
+      <div className="py-1 w-full">
         <div className="max-w-4xl mx-auto px-4 relative">
           {/* TOC - Positioned absolutely to the left on desktop, rendered for mobile toggle */}
           <aside className="xl:absolute xl:left-[-280px] xl:top-0 xl:w-64 xl:h-full">
@@ -75,13 +75,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
           >
             <ArrowLeft size={16} /> Back to Blog
           </Link>
 
           <article className="prose prose-invert prose-lg max-w-none">
-            <div className="mb-8 border-b border-border pb-8">
+            <div className="mb-6 border-b border-border pb-4">
               <h1 className="mb-2 break-words">{post.title}</h1>
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-muted-foreground text-sm">
                 <time>{post.date}</time>

@@ -59,6 +59,7 @@ lr = 3e-4
 epochs = 40_000
 eval_iters = 50
 ```
+Training a single layer with 12 heads and a context of 128 tokens using `gpt-2` tokenizer.
 
 ```python
 class OneLayerTransformer(nn.Module):
@@ -115,6 +116,7 @@ class OneLayerTransformer(nn.Module):
 ```
 
 
-You can access the github repo right here:
 
+<hr/>
+Github repo:
 <GitHubRepo owner="yuralo" repo="Mechanistic-Interpretability" />

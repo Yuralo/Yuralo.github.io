@@ -357,3 +357,91 @@ body.focus-mode-active article.focus-mode-article {
     transform: scale(1);
   }
 }
+
+/* Snow Effect Animations */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes snowfallSway {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50vh) translateX(var(--sway-amount, 10px)) rotate(90deg);
+  }
+  50% {
+    transform: translateY(0vh) translateX(0) rotate(180deg);
+  }
+  75% {
+    transform: translateY(50vh) translateX(calc(var(--sway-amount, 10px) * -1)) rotate(270deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(0) rotate(360deg);
+  }
+}
+
+@keyframes snowfallRight {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift-amount, 20vw)) rotate(360deg);
+  }
+}
+
+@keyframes snowfallLeft {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift-amount, -20vw)) rotate(360deg);
+  }
+}
+
+@keyframes snowfallRightSway {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-60vh) translateX(calc(var(--sway-amount, 10px) * 0.5 + var(--drift-amount, 20vw) * 0.2)) rotate(72deg);
+  }
+  40% {
+    transform: translateY(-20vh) translateX(calc(var(--drift-amount, 20vw) * 0.4)) rotate(144deg);
+  }
+  60% {
+    transform: translateY(20vh) translateX(calc(var(--sway-amount, 10px) * -0.5 + var(--drift-amount, 20vw) * 0.6)) rotate(216deg);
+  }
+  80% {
+    transform: translateY(60vh) translateX(calc(var(--drift-amount, 20vw) * 0.8)) rotate(288deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift-amount, 20vw)) rotate(360deg);
+  }
+}
+
+@keyframes snowfallLeftSway {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-60vh) translateX(calc(var(--sway-amount, 10px) * -0.5 + var(--drift-amount, -20vw) * 0.2)) rotate(72deg);
+  }
+  40% {
+    transform: translateY(-20vh) translateX(calc(var(--drift-amount, -20vw) * 0.4)) rotate(144deg);
+  }
+  60% {
+    transform: translateY(20vh) translateX(calc(var(--sway-amount, 10px) * 0.5 + var(--drift-amount, -20vw) * 0.6)) rotate(216deg);
+  }
+  80% {
+    transform: translateY(60vh) translateX(calc(var(--drift-amount, -20vw) * 0.8)) rotate(288deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift-amount, -20vw)) rotate(360deg);
+  }
+}
