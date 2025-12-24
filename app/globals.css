@@ -186,6 +186,57 @@
   [data-theme="light"] .prose {
     --tw-prose-body: #2d2d2d;
   }
+
+  /* KaTeX math styling - left align and match theme */
+  .prose .katex-display {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .prose .katex-display > .katex {
+    text-align: left !important;
+    display: inline-block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .prose .katex {
+    color: var(--foreground) !important;
+    font-size: 1.125rem !important;
+    font-weight: 400 !important;
+    line-height: 1.75 !important;
+  }
+
+  .prose .katex * {
+    font-weight: 400 !important;
+  }
+
+  .prose .katex .mathnormal {
+    font-weight: 400 !important;
+  }
+
+  .prose .katex .text {
+    color: var(--foreground) !important;
+    font-weight: 400 !important;
+    font-size: 1.25rem !important;
+  }
+
+  .prose .katex .mord {
+    color: var(--foreground) !important;
+    font-weight: 400 !important;
+  }
+
+  .prose .katex .mbin,
+  .prose .katex .mrel,
+  .prose .katex .mop {
+    color: var(--foreground) !important;
+    font-weight: 400 !important;
+  }
 }
 
 @theme {
@@ -284,6 +335,39 @@ body {
   color: var(--foreground);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Global KaTeX overrides - ensure left alignment and normal font */
+.katex-display {
+  text-align: left !important;
+  margin: 1.5em 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.katex-display > .katex {
+  text-align: left !important;
+  display: inline-block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline: 0 !important;
+}
+
+.katex {
+  font-size: 1.125rem !important;
+  font-weight: 400 !important;
+  line-height: 1.75 !important;
+}
+
+.katex * {
+  font-weight: 400 !important;
 }
 
 /* Terminal Cursor Effect */

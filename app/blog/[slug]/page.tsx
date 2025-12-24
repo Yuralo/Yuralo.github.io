@@ -7,6 +7,7 @@ import { Citation } from "@/components/Citation";
 import { References } from "@/components/References";
 import { TableOfContents } from "@/components/TableOfContents";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
+import { CollapsibleCodeBlock } from "@/components/CollapsibleCodeBlock";
 import { BlogImage } from "@/components/BlogImage";
 import { ShareButtons } from "@/components/ShareButtons";
 import { FocusMode } from "@/components/FocusMode";
@@ -153,10 +154,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 },
                 pre: ({ children, ...props }: any) => {
                   return (
-                    <div className="relative group">
-                      <pre {...props}>{children}</pre>
-                      <CopyCodeButton />
-                    </div>
+                    <CollapsibleCodeBlock defaultCollapsed={true}>
+                      <div className="relative group">
+                        <pre {...props}>{children}</pre>
+                        <CopyCodeButton />
+                      </div>
+                    </CollapsibleCodeBlock>
                   );
                 },
               }}

@@ -39,7 +39,7 @@ If you haven't been living under a rock you probably have heard about **Transfor
 
 Eventhough the architecture have changed a little bit for optimization purposes and many varations  have been introduced (GQA, MLA, DSA ...) still they all are some few tweaks away from original.
 
-Almost all of the performance gained by LLMs are because of this part that's why we are going to focus on it solely, meaning we will be training and inspecting Attention-only models ranging from 1, 2, 3 and 8 layers.
+Almost all of the performance gained by LLMs are because of this part that's why we are going to focus on it solely, meaning we will be training and inspecting Attention-only models ranging from 1, 2, 3 and 8 layers in the first few experiments and then migrate to analyze a model like gpt2. 
 
 **_NOTE:_** We are not using MLPs here because they famously make models hard to interpret due to their tendency to create distributed representations.
 
@@ -49,6 +49,7 @@ Starting we are training our model on **openwebtext** dataset, using a One-Layer
 using the following paramters:
 
 ```python 
+enc = tiktoken.get_encoding("gpt2")
 d_model = 768
 n_heads = 12
 d_head = 64 
@@ -59,7 +60,7 @@ lr = 3e-4
 epochs = 40_000
 eval_iters = 50
 ```
-Training a single layer with 12 heads and a context of 128 tokens using `gpt-2` tokenizer.
+Training a single layer with 12 heads and a context of 128 tokens.
 
 ```python
 class OneLayerTransformer(nn.Module):
@@ -115,6 +116,142 @@ class OneLayerTransformer(nn.Module):
         return logits 
 ```
 
+we can describe attention model as a residual stream which get branched and on that branch some filters are applied, then we add the result back onto the stream
+also we consider each head as its own filter and each layer as a group of filters each learning its own representation.
+
+considering this we can also say the function of each head in attention only model is specific which means the function of a head doesn't change.
+![One Layer attention|50%](onelayer.png)
+
+**_NOTE:_** we have to emphasize on this point because when adding MLP layer a phenomenon called **polysemanticity** occur this means a single neuron fires for multiple and often unrelated features at the same time for example cat and car which makes interpretation difficult.
+
+
+### Mathematical analysis
+
+Here what that looks like mathmatically:
+$$
+x_0 = W_E \times t \\
+\text{(one-hot vector $t$ picks out a row from $W_E$)} \\[0.5em]
+x_1 = x_0 + h_a(x_0) + h_b(x_0) + \dots \\
+\text{(each head adds to residual stream)} \\[0.5em]
+\text{logits} = W_U \times x_1 \\[0.5em]
+\text{logits} = W_U \times (x_0 + h_a(x_0) + h_b(x_0) + \dots) \\
+= W_U \times (W_E \times t + h_a(W_E \times t) + h_b(W_E \times t) + \dots) \\
+= W_U \times W_E \times t + W_U \times h_a(W_E \times t) + W_U \times h_b(W_E \times t) + \dots
+$$
+
+Here we recognize two paths:
+### **Path 1**: The Direct Residual Path (Bigram): 
+
+$$ W_U \times W_E \times t $$
+
+This emebedding and unembedding path which only learns a bigram representation
+meaning it only uses the current position. Can't look at previous words!
+and exactly what a zero layer model would learn
+
+**_NOTE:_** embedding is the process of converting the discrete tokens to a continuous vector representations.
+
+### **Path 2**: The Attention Head Paths:
+
+This is where context enters. and where the model starts to pay attention to even more tokens eariler in the context, and where the model learns complex represntations.
+
+We grouped the whole layer as a path but we can also think of each head as a path of its own.
+
+for each head:
+$$
+W_U \times h_i(W_E \times t)
+$$
+
+An attention head formula is defined by four matrices:
+1. $$W_{Q}^{i}$$: The Query matrix.
+2. $$W_{K}^{i}$$: The Key matrix
+3. $$W_{V}^{i}$$: The Value matrix
+4. $$W_{O}^{i}$$: The Output(or Porjection) matrix
+
+$$
+h_i(X) = \text{softmax}\left(\frac{(XW_Q^i)(XW_K^i)^T}{\sqrt{d_k}}\right) (XW_V^i W_O^i)
+$$
+
+## Circuit decomposition
+
+### 1. The QK Circuit (The "Where" Path)
+Shows how the attention pattern determines which tokens the head looks at, meaning it filters and ranks the context (Each head has a different criteria based on which it ranks the context)
+
+
+To find this, we look inside the $\text{softmax}$ at the term that determines the attention scores. Let $x_{\text{dest}}$ be the vector at the current position (the query) and $x_{\text{src}}$ be the vector at a previous position (the key). The raw score (logit) before softmax is:
+
+$$
+\text{score} = \frac{(x_{\text{dest}} W_Q^i) \cdot (x_{\text{src}} W_K^i)^T}{\sqrt{d_k}}
+$$
+
+Expanding $x$ into its token embeddings $W_E t$:
+
+$$
+\text{score} = \frac{(W_E t_{\text{dest}}) W_Q^i (W_K^i)^T (W_E t_{\text{src}})^T}{\sqrt{d_k}}
+$$
+
+We can group the weight matrices in the middle to find the QK Circuit:
+
+$$
+\text{QK Circuit} = W_E^T (W_Q^i (W_K^i)^T) W_E
+$$
+
+and in the model this looks like:
+
+```python
+@torch.no_grad()
+def extract_qk_matrix(
+    model: OneLayerTransformer,
+    head_idx: int
+) -> torch.Tensor:
+    W_E = model.W_E.weight.T  # [d_model, V]
+    W_Q = model.W_Q.weight  # [h*d_head, d_model]
+    W_K = model.W_K.weight
+
+    start = head_idx * d_head
+    end = (head_idx + 1) * d_head
+    
+    W_Q_i = W_Q[start:end, :].T
+    W_K_i = W_K[start:end, :].T
+    QK = W_E.T @ W_Q_i @ W_K_i.T @ W_E
+    return QK
+```
+### 2. OV Circuit (The "What" Path) 
+Transforms each attended token into contributions to the residual stream meaning it pushes the information based on the ranking by the QK cirucit
+
+Both means: If QK says “B is most important token in the context” OV says “looking at B like this increases the chance of token X next.”
+
+
+If we ignore the attention pattern $A$ for a moment and look at how a single vector $x$ at a source position is transformed into a contribution to the logits at the destination, we see this chain of linear transformations:
+
+$$
+x \xrightarrow{W_V} \text{value} \xrightarrow{W_O} \text{head output} \xrightarrow{W_U} \text{logits}
+$$
+
+By substituting $x = W_E t$, the end-to-end linear map is:
+
+$$
+\text{OV Circuit} = W_U W_O^i W_V^i W_E
+$$
+
+```python
+@torch.no_grad()
+def extract_ov_matrix(
+    model: OneLayerTransformer,
+    head_idx: int
+) -> torch.Tensor:
+    W_E_T = model.W_E.weight.T      # [d_model, V]
+    W_U   = model.W_U.weight        # [V, d_model]
+
+    W_V = model.W_V.weight          # [h*d_head, d_model]
+    start = head_idx * d_head
+    end = (head_idx + 1) * d_head
+    W_V_i = W_V[start:end, :]       # [d_head, d_model]
+
+    W_O = model.W_O.weight          # [d_model, h*d_head]
+    W_O_i = W_O[:, start:end]       # [d_model, d_head]
+    OV = W_U @ (W_O_i @ (W_V_i @ W_E_T))
+    return OV
+```
 
 
 <hr/>
