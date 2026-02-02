@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const contacts = [
-    { icon: Mail, label: "Email", value: "your.email@example.com", href: "mailto:your.email@example.com" },
-    { icon: Twitter, label: "Twitter", value: "@yourusername", href: "https://twitter.com/yourusername" },
-    { icon: Github, label: "GitHub", value: "yourusername", href: "https://github.com/yourusername" }
+    { icon: Mail, label: "Email", value: "bahaa.tabbakha@gmail.com", href: "mailto:bahaa.tabbakha@gmail.com" },
+    { icon: Twitter, label: "Twitter", value: "@luminaclar", href: "https://twitter.com/luminaclar" },
+    { icon: Github, label: "GitHub", value: "yuralo", href: "https://github.com/yuralo" }
   ];
 
   return (

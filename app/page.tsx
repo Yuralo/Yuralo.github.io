@@ -17,13 +17,10 @@ export default function Home() {
         >
           <h2 className="text-2xl font-bold mb-4 uppercase tracking-tight">About Me</h2>
           <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed mb-4">
-            I'm a developer who loves building things for the web. 
-            I enjoy exploring complex systems, creating interactive experiences, 
-            and making the internet a little bit more fun.
-          </p>
-          <p className="text-muted-foreground leading-relaxed max-w-2xl">
-            I specialize in full-stack development with a focus on React, Next.js, and modern web technologies.
-            When I'm not coding, you can find me exploring new tech, reading papers, or experimenting with generative art.
+          I'm a Machine Learning Engineer, deep learning enthusiast, Interpretability & RL fan.
+          Most days I'm working Mechanistic Interpretability, and lately training models to do useful things.
+          Currently deep in mechanistic interpretability, and many other things. 
+          I think a lot about alignment, Reinforcement Learning, and what intelligence actually means.
           </p>
         </motion.div>
       </section>

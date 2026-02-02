@@ -8,7 +8,7 @@ export function Footer() {
         
         <div className="flex flex-col gap-3">
           <a 
-            href="https://github.com" 
+            href="https://github.com/yuralo" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="flex items-center gap-3 text-sm text-foreground/60 hover:text-foreground transition-colors"
@@ -17,7 +17,7 @@ export function Footer() {
             <span>GitHub</span>
           </a>
           <a 
-            href="https://twitter.com" 
+            href="https://twitter.comhttps://x.com/luminaclar" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="flex items-center gap-3 text-sm text-foreground/60 hover:text-foreground transition-colors"
@@ -26,7 +26,7 @@ export function Footer() {
             <span>Twitter</span>
           </a>
           <a 
-            href="mailto:hello@example.com" 
+            href="bahaa.tabbakha@gmail.com" 
             className="flex items-center gap-3 text-sm text-foreground/60 hover:text-foreground transition-colors"
           >
             <Mail size={16} />

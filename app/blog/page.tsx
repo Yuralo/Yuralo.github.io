@@ -9,7 +9,7 @@ export default function BlogPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tighter">Blog</h1>
         <p className="text-xl text-muted-foreground">
-          Thoughts, tutorials, and notes on software development.
+          Thoughts, and notes on machine learning, deep learning, and other things.
         </p>
       </div>
 

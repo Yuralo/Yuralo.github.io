@@ -253,7 +253,28 @@ def extract_ov_matrix(
     return OV
 ```
 
+Now that we have layed the ground we can start with the analysis:
 
+sample output:
+```txt
+The reality of life is vernacular or a large component by the woman.
+
+The following the first that was no evidence in terms a “to-be.”
+
+A couple of thousand, which will have more for the personal security for a lot of this the situation and the murder (or), a real person known to be in the past, but “histice the world.”
+
+The next round are all the states in the case, no credit from the world’
+```
+We can see from a sample output the model is outputing something that is not really understandable but we can also observer that the model is learning the structure of a language.
+
+![QK circuit|100%](QK circuit.png)
+
+We can already see the copying mechanism here, observing the token 'E' we can see it boosting the previous token 'E'.
+
+![Attention scores|100%](exp1-attention.png)
+Examining the 4th, 5th and 7th heads here we can observe that those heads are doing an indication of copying and forming an early stage of what is called induction heads.
+
+## Two-Layers Transformer
 <hr/>
 Github repo:
 <GitHubRepo owner="yuralo" repo="Mechanistic-Interpretability" />

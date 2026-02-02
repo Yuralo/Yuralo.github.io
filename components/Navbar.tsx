@@ -44,11 +44,11 @@ export function Navbar() {
         href="/" 
         className="group relative mb-10 text-center"
       >
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-foreground mb-3 uppercase">
+        <h1 className="text-6xl md:text-6xl font-black tracking-tighter text-foreground mb-3 uppercase">
           Yuralo
         </h1>
         <p className="text-sm md:text-base text-muted-foreground font-medium tracking-widest uppercase flex items-center justify-center gap-2">
-          <span className="text-primary">~/</span> Researcher & Developer
+          <span className="text-primary">~/</span> Researcher & Engineer
         </p>
       </Link>
       
