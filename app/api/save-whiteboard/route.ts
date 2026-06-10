@@ -15,13 +15,25 @@ export async function POST(request: NextRequest) {
 
     // Sanitize filename
     const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const finalFileName = sanitizedFileName.endsWith('.svg') 
-      ? sanitizedFileName 
+    const finalFileName = sanitizedFileName.endsWith('.svg')
+      ? sanitizedFileName
       : `${sanitizedFileName}.svg`;
 
+    // Sanitize the slug the same way to prevent path traversal (e.g. "../../etc")
+    const sanitizedSlug = String(blogSlug).replace(/[^a-zA-Z0-9._-]/g, '_');
+
     // Create the directory path
-    const publicDir = path.join(process.cwd(), 'public', 'images', 'posts', blogSlug);
-    
+    const postsRoot = path.join(process.cwd(), 'public', 'images', 'posts');
+    const publicDir = path.join(postsRoot, sanitizedSlug);
+
+    // Defense in depth: make sure the resolved path stays inside postsRoot
+    if (!path.resolve(publicDir).startsWith(path.resolve(postsRoot) + path.sep)) {
+      return NextResponse.json(
+        { error: 'Invalid blogSlug' },
+        { status: 400 }
+      );
+    }
+
     // Create directory if it doesn't exist
     if (!fs.existsSync(publicDir)) {
       fs.mkdirSync(publicDir, { recursive: true });
@@ -34,7 +46,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'File saved successfully',
-      path: `/images/posts/${blogSlug}/${finalFileName}`,
+      path: `/images/posts/${sanitizedSlug}/${finalFileName}`,
     });
   } catch (error: any) {
     console.error('Error saving whiteboard:', error);

@@ -370,6 +370,17 @@ body {
   font-weight: 400 !important;
 }
 
+/* Dotted grid background — sits behind all content, kept subtle for readability */
+.dot-grid {
+  background-image: radial-gradient(var(--border) 1.4px, transparent 1.6px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+  opacity: 0.5;
+  /* Fade the grid out toward the edges so it reads as texture, not a hard pattern */
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
+}
+
 /* Terminal Cursor Effect */
 .cursor-blink {
   display: inline-block;
